@@ -100,18 +100,69 @@
       align-items: center;
       flex-direction: column;
       color: white;
-      font-size: 28px;
-      font-weight: bold;
       text-align: center;
       z-index: 5;
       display: none;
       padding: 20px;
     }
 
-    .overlay p {
-      font-size: 20px;
-      margin-top: 10px;
-      font-weight: normal;
+    /* Animation for overlay elements */
+    .overlay.show {
+      display: flex;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .overlay h1, .overlay .rose-day, .overlay .rose-image {
+      opacity: 0;
+      transform: scale(0.5);
+      animation: popIn 0.8s ease forwards;
+    }
+
+    .overlay h1 {
+      font-size: 60px;
+      font-weight: 900;
+      margin: 0;
+      color: #fff8f0;
+      text-shadow: 2px 2px 8px #e63946;
+      animation-delay: 0.2s;
+    }
+
+    .overlay .rose-day {
+      font-size: 36px;
+      font-family: 'Cursive', 'Brush Script MT', sans-serif;
+      margin: 15px 0;
+      color: #ffe5e0;
+      text-shadow: 1px 1px 5px #e63946;
+      animation-delay: 0.5s;
+    }
+
+    .overlay .rose-image {
+      width: 300px;
+      max-width: 80%;
+      border-radius: 20px;
+      margin-top: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      animation-delay: 0.8s;
+    }
+
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
   </style>
 </head>
@@ -119,7 +170,7 @@
 
   <div class="card">
     <!-- Replace this with your photo file -->
-    <img src="your-photo.jpeg" alt="Us together" />
+    <img src="background.jpeg" alt="Us together" />
 
     <h1>Will you be my Valentine? ❤️</h1>
 
@@ -131,8 +182,9 @@
 
   <!-- Final screen after Yes -->
   <div class="overlay" id="overlay">
-    She said YES!!! ❤️
-    <p>Can't wait for our Valentine's date 🌹</p>
+    <h1>SHE SAID YES !!!</h1>
+    <p class="rose-day">Happy Rose Day 🌹</p>
+    <img src="roseday.jpeg" alt="Rose Day" class="rose-image" />
   </div>
 
   <script>
@@ -144,7 +196,7 @@
     let dodgeDifficulty = 1;
 
     yesBtn.addEventListener("click", () => {
-      overlay.style.display = "flex";
+      overlay.classList.add("show");
     });
 
     // Make the No button increasingly harder to click
@@ -158,7 +210,6 @@
       noBtn.style.left = randX + "px";
       noBtn.style.top = randY + "px";
 
-      // Increase difficulty (button shrinks slightly each time)
       dodgeDifficulty += 0.1;
       noBtn.style.transform = `scale(${Math.max(0.5, 1 - dodgeDifficulty * 0.05)})`;
     }
@@ -186,25 +237,3 @@
 
 </body>
 </html>
-
-<!--
-HOW TO PUT THIS ONLINE (so you can send a link)
-
-Easiest method: GitHub Pages
-
-1. Create a free GitHub account
-2. Create a new repository called valentines-site
-3. Upload this file as index.html and your photo
-4. Go to Settings → Pages
-5. Under Source, choose "Deploy from branch" and select main
-6. Your site will appear at:
-   https://yourusername.github.io/valentines-site/
-
-Alternative (even easier): Netlify
-1. Go to https://app.netlify.com/drop
-2. Drag the folder containing this file
-3. It gives you a link instantly
--->
-
-
-
